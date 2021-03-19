@@ -1,0 +1,7 @@
+database/CustomerDAO.class
+database/util/DatabaseConnectionManager.class
+database/Customer.class
+pages/SauceDemoHomePage.class
+database/util/DataAccessObject.class
+hooks/Hooks.class
+database/util/DataTransferObject.class

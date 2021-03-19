@@ -1,0 +1,193 @@
+[
+  {
+    "line": 1,
+    "elements": [
+      {
+        "start_timestamp": "2021-03-19T17:49:54.664Z",
+        "before": [
+          {
+            "result": {
+              "duration": 14163750000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "hooks.Hooks.setup()"
+            }
+          }
+        ],
+        "line": 4,
+        "name": "Login to Secret Sauce",
+        "description": "",
+        "id": "new-feature;login-to-secret-sauce",
+        "after": [
+          {
+            "result": {
+              "duration": 771898000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "hooks.Hooks.tear_down()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 471684000,
+              "status": "passed"
+            },
+            "line": 5,
+            "name": "I am on secret sauce home page",
+            "match": {
+              "location": "stepdefinitions.MenuManagementSteps.i_am_on_secret_sauce_home_page()"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 717309000,
+              "status": "passed"
+            },
+            "line": 6,
+            "name": "I enter \"standard_user\" and \"secret_sauce\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"standard_user\"",
+                  "offset": 8
+                },
+                {
+                  "val": "\"secret_sauce\"",
+                  "offset": 28
+                }
+              ],
+              "location": "stepdefinitions.MenuManagementSteps.i_enter_and(java.lang.String,java.lang.String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 18003000,
+              "status": "passed"
+            },
+            "line": 7,
+            "name": "I am logged in",
+            "match": {
+              "location": "stepdefinitions.MenuManagementSteps.i_am_logged_in()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@NewTest"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2021-03-19T17:50:10.947Z",
+        "before": [
+          {
+            "result": {
+              "duration": 5128923000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "hooks.Hooks.setup()"
+            }
+          }
+        ],
+        "line": 10,
+        "name": "Creating a new element in Database",
+        "description": "",
+        "id": "new-feature;creating-a-new-element-in-database",
+        "after": [
+          {
+            "result": {
+              "duration": 796767000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "hooks.Hooks.tear_down()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 378991000,
+              "status": "passed"
+            },
+            "line": 11,
+            "name": "I create a new record in the customer table with first_name \"palki\", second_name \"sharma\", email \"hello123@gmail.com\",phone \"4164347519\", address \"King Street West\", city \"Toronto\", state \"Ontario\", zipcode \"M6K0C6\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"palki\"",
+                  "offset": 60
+                },
+                {
+                  "val": "\"sharma\"",
+                  "offset": 81
+                },
+                {
+                  "val": "\"hello123@gmail.com\"",
+                  "offset": 97
+                },
+                {
+                  "val": "\"4164347519\"",
+                  "offset": 124
+                },
+                {
+                  "val": "\"King Street West\"",
+                  "offset": 146
+                },
+                {
+                  "val": "\"Toronto\"",
+                  "offset": 171
+                },
+                {
+                  "val": "\"Ontario\"",
+                  "offset": 188
+                },
+                {
+                  "val": "\"M6K0C6\"",
+                  "offset": 207
+                }
+              ],
+              "location": "stepdefinitions.DatabaseTestSteps.i_create_a_new_record_in_the_customer_table_with_first_name_second_name_email_phone_address_city_state_zipcode(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 45065000,
+              "status": "passed"
+            },
+            "line": 12,
+            "name": "I validate the result",
+            "match": {
+              "location": "stepdefinitions.DatabaseTestSteps.i_validate_the_result()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@DatabaseTest"
+          }
+        ]
+      }
+    ],
+    "name": "New Feature",
+    "description": "",
+    "id": "new-feature",
+    "keyword": "Feature",
+    "uri": "file:src/test/java/features/NewFeature.feature",
+    "tags": []
+  }
+]
