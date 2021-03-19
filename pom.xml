@@ -11,8 +11,6 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>15</maven.compiler.source>
-        <maven.compiler.target>15</maven.compiler.target>
         <java.version>15</java.version>
         <junit.version>4.13.2</junit.version>
         <cucumber.version>6.10.2</cucumber.version>
