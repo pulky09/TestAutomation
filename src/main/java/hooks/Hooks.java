@@ -1,10 +1,15 @@
 package hooks;
 
 
+import configs.ConfigFileReader;
 import database.util.DatabaseConnectionManager;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
@@ -17,29 +22,56 @@ import java.sql.SQLException;
 
 public class Hooks {
 
+    private WebDriver driver;
+    private ConfigFileReader configFileReader;
     private Connection connection;
     public static final String remote_url = "http://localhost:4444/wd/hub";
-    public static final String remote_url_chrome = "http://localhost:4445/wd/hub";
-    public static final String remote_url_firefox = "http://localhost:4446/wd/hub";
-    //protected static ThreadLocal<RemoteWebDriver> driver = new ThreadLocal<>();
-    private WebDriver driver;
+    private final String browser = System.getProperty("browser");
 
+    public Hooks(){
+        configFileReader = new ConfigFileReader();
+        System.setProperty("webdriver.gecko.driver",configFileReader.getValue("driver_path_firefox"));
+        System.setProperty("webdriver.chrome.driver",configFileReader.getValue("driver_path_chrome"));
+    }
 
     @Before
-    public void setup() throws MalformedURLException,SQLException {
-        /*String browserName = System.getProperty("browser");*/
-        System.setProperty("webdriver.gecko.driver", "/Users/pulkitbhatia/Downloads/Drivers/geckodriver");
-        /*if(browserName.equalsIgnoreCase("firefox")){
-            FirefoxOptions options = new FirefoxOptions();
-        driver.set(new RemoteWebDriver(new URL(remote_url),options));}
-        if(browserName.equalsIgnoreCase("chrome")){
-            ChromeOptions options = new ChromeOptions();
-        driver.set(new RemoteWebDriver(new URL(remote_url),options));}*/
+    public void setup() {
+        DatabaseConnectionManager dcm = new DatabaseConnectionManager(
+                                        configFileReader.getValue("host"),
+                                        configFileReader.getValue("dbname"),
+                                        configFileReader.getValue("username"),
+                                        configFileReader.getValue("password"));
+        try {
+            connection = dcm.getConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
 
-        DatabaseConnectionManager dcm = new DatabaseConnectionManager("localhost", "hplussport", "postgres", "password");
-        connection = dcm.getConnection();
-        driver = new FirefoxDriver();
-        driver.manage().window().maximize();
+        if(browser.equalsIgnoreCase("firefox")){
+            FirefoxOptions options = new FirefoxOptions();
+            driver = new FirefoxDriver(options);}
+        if(browser.equalsIgnoreCase("chrome")){
+            ChromeOptions options = new ChromeOptions();
+            driver = new ChromeDriver(options);}
+        if(browser.equalsIgnoreCase("firefoxremote")){
+            FirefoxOptions options = new FirefoxOptions();
+            try {
+                driver = new RemoteWebDriver(new URL(remote_url),options);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
+        if (browser.equalsIgnoreCase("chromeremote")){
+            ChromeOptions options = new ChromeOptions();
+            try {
+                driver = new RemoteWebDriver(new URL(remote_url),options);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
         }
 
     public WebDriver getDriver(){
@@ -51,7 +83,11 @@ public class Hooks {
     }
 
     @After
-    public void tear_down() {
+    public void tear_down(Scenario scenario) {
+        if(scenario.isFailed()){
+           byte[] screenshot =  ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+           scenario.attach(screenshot,"image/png","file");
+        }
         getDriver().quit();
     }
 }
